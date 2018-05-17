@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.laotapo</groupId>
+  <artifactId>test-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>test-laotapo-api</module>
+    <module>test-laotapo-modules</module>
+    <module>test-eureka</module>
+    <module>test-eureka-client</module>
+    <module>test-eureka-client1</module>
+    <module>test-ribbon</module>
+    <module>test-feign</module>
+    <module>test-service-zuul</module>
+    <module>test-config-server</module>
+  </modules>
+  
+  <build>
+    <plugins>
+      <!-- 添加docker-maven插件 -->
+      <plugin>
+        <groupId>com.laotapo</groupId>
+        <artifactId>com.laotapo</artifactId>
+        <version>0.4.13</version>
+        <configuration>
+          <imageName>itmuch/${project.artifactId}:${project.version}</imageName>
+          <baseImage>java</baseImage>
+          <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+          <resources>
+            <resource>
+              <targetPath>/</targetPath>
+              <directory>${project.build.directory}</directory>
+              <include>${project.build.finalName}.jar</include>
+            </resource>
+          </resources>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
